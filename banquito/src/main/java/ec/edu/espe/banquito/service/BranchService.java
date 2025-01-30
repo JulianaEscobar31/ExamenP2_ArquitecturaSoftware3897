@@ -12,23 +12,28 @@ import ec.edu.espe.banquito.repository.BranchRepository;
 @Service
 public class BranchService {
 
-    private  BranchRepository branchRepository;
+    private final BranchRepository branchRepository;
     public static final String ENTITY_NAME = "Branch";
 
+    public BranchService(BranchRepository branchRepository) {
+        this.branchRepository = branchRepository;
+    }
+
+    
     public List<Branch> findAll() {
-        List<Branch> branches = branchRepository.findAll();
+        List<Branch> branches = branchRepository.findAll();        
         if (branches.isEmpty()) {
             throw new NotFoundException("No se encontraron sucursales", ENTITY_NAME);
         }
         return branches;
     }
 
-    //Crear una sucursal (sin feriados) utilizando NotFoundException
-    public Branch createBranch(Branch branch) {
+
+    public Branch createBranch(Branch branch) {       
         return branchRepository.save(branch);
     }
 
-    //Obtener una sucursal por su id utilizando NotFoundException
+
     public Branch findByBranch (String id) {
         Branch branch = branchRepository.findById(id).orElse(null);
         if (branch == null) {
@@ -37,7 +42,7 @@ public class BranchService {
             return branch;
             }
             
-        }
+    }
 
     public Branch updateBranch(String id, Branch branch) {
         Branch branchToUpdate = branchRepository.findById(id).orElse(null);
@@ -60,7 +65,6 @@ public class BranchService {
         }
     }
 
-    //Eliminar feriados de una sucursal utilizando NotFoundException
     public Branch deleteBranchHoliday(String id, String holidayName) {
         Branch branch = branchRepository.findById(id).orElse(null);
         if (branch == null) {
@@ -77,7 +81,6 @@ public class BranchService {
         }
     }
 
-    //Obtener todos los feriados de una sucursal
     public List<BranchHoliday> findAllBranchHolidays(String id) {
         Branch branch = branchRepository.findById(id).orElse(null);
         if (branch == null) {
@@ -87,7 +90,6 @@ public class BranchService {
         }
     }
 
-    //Verificar si una fecha dada es o no un feriado en una sucursal
     public boolean isHoliday(String id, String date) {
         Branch branch = branchRepository.findById(id).orElse(null);
         if (branch == null) {
@@ -102,12 +104,4 @@ public class BranchService {
             return false;
         }
     }
-
-
-
-
-
-
-
-
 }

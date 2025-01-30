@@ -1,20 +1,17 @@
-package ec.edu.espe.banquito.model;
+package ec.edu.espe.banquito.controller.dto;
 
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import ec.edu.espe.banquito.model.BranchHoliday;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document(collection = "branches")
 @Data
 @NoArgsConstructor
-public class Branch {
+public class BranchDTO {
 
-    @Id
     private String id;
     private String emailAddress;
     private String name;
@@ -23,5 +20,4 @@ public class Branch {
     private Date creationDate;
     private Date lastModifiedDate;
     private List <BranchHoliday> branchHolidays;
-
 }
